@@ -1,0 +1,187 @@
+{{--
+    Expected variables from controller:
+    - $userName (string)
+    - $selectedMarket (?object with name)
+    - $selectedCountry (?object with name)
+    - $todayPriceCount (int)
+    - $todayExchangeRateCount (int)
+    - $collectionProgress (array: percentage)
+    - $priceProgress (array: actual, expected, percentage)
+    - $rateProgress (array: actual, expected, percentage)
+    - $remainingPriceCount (int)
+    - $missingItems (list of strings)
+    - $recentSubmissions (list of arrays: label, value, status)
+    - $activityStats (array: today, week, month)
+--}}
+<x-pahewo-layout :title="__('pahewo.dashboard.title')">
+    <x-page-header
+        :title="__('pahewo.dashboard.title')"
+        :subtitle="__('pahewo.common.welcome', ['name' => $userName ?? auth()->user()->name])"
+    >
+        <x-slot name="actions">
+            <span class="text-sm text-gray-500">📅 {{ now()->translatedFormat('j F Y') }}</span>
+        </x-slot>
+    </x-page-header>
+
+    <div class="mb-4 flex flex-wrap items-center gap-4 text-sm text-gray-600">
+        @if ($selectedMarket ?? null)
+            <span>{{ __('pahewo.common.market') }} : <strong class="text-gray-900">{{ $selectedMarket->name }}</strong></span>
+        @endif
+        @if ($selectedCountry ?? null)
+            <span>{{ __('pahewo.common.country') }} : <strong class="text-gray-900">{{ $selectedCountry->name }}</strong></span>
+        @endif
+    </div>
+
+    {{-- Stat cards --}}
+    <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <x-stat-card
+            icon="📦"
+            :label="__('pahewo.dashboard.prices_today')"
+            :value="number_format($todayPriceCount ?? 0)"
+        >
+        </x-stat-card>
+        <x-stat-card
+            icon="💱"
+            :label="__('pahewo.dashboard.rates_today')"
+            :value="number_format($todayExchangeRateCount ?? 0)"
+        />
+        <x-stat-card
+            icon="✅"
+            :label="__('pahewo.dashboard.progress')"
+            :value="number_format($collectionProgress['percentage'] ?? 0, 0).' %'"
+        />
+    </div>
+
+    {{-- Collection progress --}}
+    <section class="mb-6 rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+        <div class="mb-4 flex items-center justify-between">
+            <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500">
+                {{ __('pahewo.dashboard.daily_collection') }}
+            </h2>
+            <span class="text-sm font-semibold text-gray-900">
+                {{ number_format($collectionProgress['percentage'] ?? 0, 0) }} %
+            </span>
+        </div>
+
+        <div class="mb-5 h-2.5 w-full overflow-hidden rounded-full bg-gray-100">
+            <div
+                class="h-full rounded-full bg-indigo-600"
+                style="width: {{ min(100, $collectionProgress['percentage'] ?? 0) }}%"
+            ></div>
+        </div>
+
+        <div class="space-y-3 text-sm">
+            <div class="flex items-center justify-between">
+                <span class="text-gray-600">{{ __('pahewo.dashboard.commodity_prices') }}</span>
+                <span class="tabular-nums font-medium text-gray-900">
+                    {{ $priceProgress['actual'] ?? 0 }} / {{ $priceProgress['expected'] ?? 0 }}
+                    ({{ number_format($priceProgress['percentage'] ?? 0, 0) }} %)
+                </span>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="text-gray-600">{{ __('pahewo.dashboard.exchange_rate_collection') }}</span>
+                <span class="tabular-nums font-medium text-gray-900">
+                    {{ $rateProgress['actual'] ?? 0 }} / {{ $rateProgress['expected'] ?? 0 }}
+                    ({{ number_format($rateProgress['percentage'] ?? 0, 0) }} %)
+                </span>
+            </div>
+        </div>
+
+        @if (($remainingPriceCount ?? 0) > 0)
+            <p class="mt-4 rounded-md bg-amber-50 px-3 py-2 text-sm text-amber-800">
+                ⚠ {{ __('pahewo.dashboard.remaining_prices', ['count' => $remainingPriceCount]) }}
+            </p>
+        @endif
+    </section>
+
+    <div class="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {{-- Quick actions --}}
+        <section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+            <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
+                {{ __('pahewo.dashboard.quick_actions') }}
+            </h2>
+            <div class="space-y-2">
+                @can('prices.create')
+                    <a href="{{ Route::has('pahewo.prices.create') ? route('pahewo.prices.create') : '#' }}" class="flex items-center gap-2 rounded-md border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50">
+                        <span aria-hidden="true">➕</span> {{ __('pahewo.nav.record_price') }}
+                    </a>
+                @endcan
+                @can('exchange_rates.create')
+                    <a href="{{ Route::has('pahewo.exchange-rates.create') ? route('pahewo.exchange-rates.create') : '#' }}" class="flex items-center gap-2 rounded-md border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50">
+                        <span aria-hidden="true">➕</span> {{ __('pahewo.nav.record_exchange_rate') }}
+                    </a>
+                @endcan
+                <a href="{{ Route::has('pahewo.submissions.index') ? route('pahewo.submissions.index') : '#' }}" class="flex items-center gap-2 rounded-md border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50">
+                    <span aria-hidden="true">📋</span> {{ __('pahewo.nav.my_submissions') }}
+                </a>
+            </div>
+        </section>
+
+        {{-- Missing data --}}
+        <section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+            <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
+                {{ __('pahewo.dashboard.missing_data') }}
+            </h2>
+
+            @if (! empty($missingItems))
+                <ul class="space-y-2 text-sm">
+                    @foreach ($missingItems as $item)
+                        <li class="flex items-center gap-2 rounded-md bg-amber-50 px-3 py-2 text-amber-800">
+                            <span aria-hidden="true">⚠</span>
+                            <span>{{ is_array($item) ? ($item['name'] ?? '') : $item }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+            @else
+                <x-empty-state icon="✅" :title="__('pahewo.common.no_data')" class="py-6" />
+            @endif
+        </section>
+    </div>
+
+    {{-- Latest submissions --}}
+    <section class="mb-6 rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+        <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
+            {{ __('pahewo.dashboard.latest_submissions') }}
+        </h2>
+
+        @if (! empty($recentSubmissions))
+            <ul class="divide-y divide-gray-100">
+                @foreach ($recentSubmissions as $submission)
+                    <li class="flex items-center justify-between gap-4 py-3 text-sm">
+                        <div>
+                            <span class="font-medium text-gray-900">{{ $submission['label'] ?? '' }}</span>
+                            <span class="ml-2 text-gray-600">{{ $submission['value'] ?? '' }}</span>
+                        </div>
+                        <span class="shrink-0 text-emerald-600">✓ {{ $submission['status'] ?? __('pahewo.dashboard.recorded') }}</span>
+                    </li>
+                @endforeach
+            </ul>
+        @else
+            <x-empty-state class="py-6" />
+        @endif
+    </section>
+
+    {{-- Activity stats --}}
+    <section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+        <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
+            {{ __('pahewo.dashboard.my_activity') }}
+        </h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div class="rounded-md bg-gray-50 px-4 py-3 text-center">
+                <p class="text-xs uppercase tracking-wide text-gray-500">{{ __('pahewo.common.today') }}</p>
+                <p class="mt-1 text-xl font-semibold tabular-nums text-gray-900">{{ $activityStats['today'] ?? 0 }}</p>
+                <p class="text-xs text-gray-500">{{ __('pahewo.dashboard.submissions') }}</p>
+            </div>
+            <div class="rounded-md bg-gray-50 px-4 py-3 text-center">
+                <p class="text-xs uppercase tracking-wide text-gray-500">{{ __('pahewo.dashboard.this_week') }}</p>
+                <p class="mt-1 text-xl font-semibold tabular-nums text-gray-900">{{ $activityStats['week'] ?? 0 }}</p>
+                <p class="text-xs text-gray-500">{{ __('pahewo.dashboard.submissions') }}</p>
+            </div>
+            <div class="rounded-md bg-gray-50 px-4 py-3 text-center">
+                <p class="text-xs uppercase tracking-wide text-gray-500">{{ __('pahewo.dashboard.this_month') }}</p>
+                <p class="mt-1 text-xl font-semibold tabular-nums text-gray-900">{{ $activityStats['month'] ?? 0 }}</p>
+                <p class="text-xs text-gray-500">{{ __('pahewo.dashboard.submissions') }}</p>
+            </div>
+        </div>
+    </section>
+</x-pahewo-layout>
