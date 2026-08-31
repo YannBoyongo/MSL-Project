@@ -23,14 +23,14 @@ class CommodityCategoryController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        return view('pahewo.commodity-categories.index', compact('categories'));
+        return view('msl.commodity-categories.index', compact('categories'));
     }
 
     public function create(): View
     {
         abort_unless(auth()->user()?->can('commodities.create'), 403);
 
-        return view('pahewo.commodity-categories.create');
+        return view('msl.commodity-categories.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -54,7 +54,7 @@ class CommodityCategoryController extends Controller
             'description' => $validated['description'] ?? null,
         ]);
 
-        return redirect()->route('pahewo.commodity-categories.index')->with('success', __('Catégorie créée avec succès.'));
+        return redirect()->route('msl.commodity-categories.index')->with('success', __('Catégorie créée avec succès.'));
     }
 
     public function edit(CommodityCategory $commodityCategory): View
@@ -64,7 +64,7 @@ class CommodityCategoryController extends Controller
         $commodityCategory->load('translations');
         $translation = $commodityCategory->translate();
 
-        return view('pahewo.commodity-categories.edit', compact('commodityCategory', 'translation'));
+        return view('msl.commodity-categories.edit', compact('commodityCategory', 'translation'));
     }
 
     public function update(Request $request, CommodityCategory $commodityCategory): RedirectResponse
@@ -88,7 +88,7 @@ class CommodityCategoryController extends Controller
             'description' => $validated['description'] ?? null,
         ]);
 
-        return redirect()->route('pahewo.commodity-categories.index')->with('success', __('Catégorie mise à jour avec succès.'));
+        return redirect()->route('msl.commodity-categories.index')->with('success', __('Catégorie mise à jour avec succès.'));
     }
 
     public function destroy(Request $request, CommodityCategory $commodityCategory): RedirectResponse
@@ -97,6 +97,6 @@ class CommodityCategoryController extends Controller
 
         $commodityCategory->delete();
 
-        return redirect()->route('pahewo.commodity-categories.index')->with('success', __('Catégorie supprimée avec succès.'));
+        return redirect()->route('msl.commodity-categories.index')->with('success', __('Catégorie supprimée avec succès.'));
     }
 }

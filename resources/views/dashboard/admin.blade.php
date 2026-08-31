@@ -12,7 +12,7 @@
     - $selectedCountryId (?int)
     - $attentionItems (optional list of ['message' => string])
 --}}
-<x-pahewo-layout :title="__('pahewo.dashboard.title')">
+<x-msl-layout :title="__('msl.dashboard.title')">
     <x-slot name="toolbar">
         <x-country-selector
             :countries="$countries ?? collect()"
@@ -21,7 +21,7 @@
     </x-slot>
 
     <x-page-header
-        :title="__('pahewo.dashboard.title')"
+        :title="__('msl.dashboard.title')"
         :subtitle="now()->translatedFormat('l j F Y')"
     />
 
@@ -29,22 +29,22 @@
     <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <x-stat-card
             icon="🏪"
-            :label="__('pahewo.dashboard.markets')"
+            :label="__('msl.dashboard.markets')"
             :value="number_format($marketCount ?? 0)"
         />
         <x-stat-card
             icon="💰"
-            :label="__('pahewo.dashboard.prices_today')"
+            :label="__('msl.dashboard.prices_today')"
             :value="number_format($todayPriceCount ?? 0)"
         />
         <x-stat-card
             icon="💱"
-            :label="__('pahewo.dashboard.rates_today')"
+            :label="__('msl.dashboard.rates_today')"
             :value="number_format($todayExchangeRateCount ?? 0)"
         />
         <x-stat-card
             icon="📝"
-            :label="__('pahewo.dashboard.unresolved_claims')"
+            :label="__('msl.dashboard.unresolved_claims')"
             :value="number_format($claimSummary['unresolved'] ?? 0)"
         />
     </div>
@@ -53,7 +53,7 @@
     <section class="mb-6 rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
         <div class="mb-4 flex items-center justify-between gap-4">
             <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500">
-                {{ __('pahewo.dashboard.daily_collection') }}
+                {{ __('msl.dashboard.daily_collection') }}
             </h2>
             <span class="text-sm font-semibold text-gray-900">
                 {{ number_format($collectionProgress['percentage'] ?? 0, 0) }} %
@@ -96,17 +96,17 @@
         {{-- Price trends placeholder --}}
         <section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
-                {{ __('pahewo.dashboard.price_trends') }}
+                {{ __('msl.dashboard.price_trends') }}
             </h2>
             <div class="flex h-48 items-center justify-center rounded-md border border-dashed border-gray-200 bg-gray-50 text-sm text-gray-500">
-                📈 {{ __('pahewo.common.no_data') }}
+                📈 {{ __('msl.common.no_data') }}
             </div>
         </section>
 
         {{-- Exchange rates --}}
         <section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
-                {{ __('pahewo.dashboard.exchange_rates') }}
+                {{ __('msl.dashboard.exchange_rates') }}
             </h2>
 
             @if (($exchangeRates ?? collect())->isNotEmpty())
@@ -125,7 +125,7 @@
             @else
                 <x-empty-state
                     icon="💱"
-                    :title="__('pahewo.common.no_data')"
+                    :title="__('msl.common.no_data')"
                     class="py-8"
                 />
             @endif
@@ -136,7 +136,7 @@
         {{-- Claims summary --}}
         <section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
-                {{ __('pahewo.dashboard.claims_summary') }}
+                {{ __('msl.dashboard.claims_summary') }}
             </h2>
 
             @php
@@ -145,15 +145,15 @@
 
             <dl class="space-y-3 text-sm">
                 <div class="flex items-center justify-between">
-                    <dt class="text-gray-600">{{ __('pahewo.dashboard.new_claims') }}</dt>
+                    <dt class="text-gray-600">{{ __('msl.dashboard.new_claims') }}</dt>
                     <dd class="font-semibold tabular-nums text-gray-900">{{ $byStatus['submitted'] ?? 0 }}</dd>
                 </div>
                 <div class="flex items-center justify-between">
-                    <dt class="text-gray-600">{{ __('pahewo.dashboard.under_review') }}</dt>
+                    <dt class="text-gray-600">{{ __('msl.dashboard.under_review') }}</dt>
                     <dd class="font-semibold tabular-nums text-gray-900">{{ $byStatus['under_review'] ?? 0 }}</dd>
                 </div>
                 <div class="flex items-center justify-between">
-                    <dt class="text-gray-600">{{ __('pahewo.dashboard.overdue') }}</dt>
+                    <dt class="text-gray-600">{{ __('msl.dashboard.overdue') }}</dt>
                     <dd class="font-semibold tabular-nums text-amber-600">
                         {{ ($byStatus['pending'] ?? 0) }}
                         @if (($byStatus['pending'] ?? 0) > 0)
@@ -162,7 +162,7 @@
                     </dd>
                 </div>
                 <div class="flex items-center justify-between">
-                    <dt class="text-gray-600">{{ __('pahewo.dashboard.resolved') }}</dt>
+                    <dt class="text-gray-600">{{ __('msl.dashboard.resolved') }}</dt>
                     <dd class="font-semibold tabular-nums text-gray-900">{{ $byStatus['resolved'] ?? 0 }}</dd>
                 </div>
             </dl>
@@ -171,7 +171,7 @@
         {{-- Needs attention --}}
         <section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
-                {{ __('pahewo.dashboard.needs_attention') }}
+                {{ __('msl.dashboard.needs_attention') }}
             </h2>
 
             @if (! empty($attentionItems))
@@ -186,7 +186,7 @@
             @else
                 <x-empty-state
                     icon="✅"
-                    :title="__('pahewo.common.no_data')"
+                    :title="__('msl.common.no_data')"
                     class="py-8"
                 />
             @endif
@@ -196,7 +196,7 @@
     {{-- Recent activity --}}
     <section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
         <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
-            {{ __('pahewo.dashboard.recent_activity') }}
+            {{ __('msl.dashboard.recent_activity') }}
         </h2>
 
         @if (($recentActivity ?? collect())->isNotEmpty())
@@ -214,4 +214,4 @@
             <x-empty-state class="py-8" />
         @endif
     </section>
-</x-pahewo-layout>
+</x-msl-layout>

@@ -41,7 +41,7 @@ class CommodityPriceController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.commodity-prices.index', compact('prices', 'countries', 'countryId', 'priceDate'));
+        return view('msl.commodity-prices.index', compact('prices', 'countries', 'countryId', 'priceDate'));
     }
 
     public function create(Request $request): View
@@ -73,7 +73,7 @@ class CommodityPriceController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.commodity-prices.create', compact('markets', 'commodities', 'currencies', 'countries', 'countryId'));
+        return view('msl.commodity-prices.create', compact('markets', 'commodities', 'currencies', 'countries', 'countryId'));
     }
 
     public function store(StoreCommodityPriceRequest $request, CommodityPriceService $commodityPriceService): RedirectResponse
@@ -83,7 +83,7 @@ class CommodityPriceController extends Controller
         $commodityPriceService->store($request->validated(), $request->user());
 
         return redirect()
-            ->route('pahewo.commodity-prices.index')
+            ->route('msl.commodity-prices.index')
             ->with('success', __('Prix enregistré avec succès.'));
     }
 
@@ -108,7 +108,7 @@ class CommodityPriceController extends Controller
             ->orderBy('code')
             ->get(['id', 'code', 'name']);
 
-        return view('pahewo.commodity-prices.edit', compact('commodityPrice', 'markets', 'commodities', 'currencies'));
+        return view('msl.commodity-prices.edit', compact('commodityPrice', 'markets', 'commodities', 'currencies'));
     }
 
     public function update(Request $request, CommodityPrice $commodityPrice): RedirectResponse
@@ -130,7 +130,7 @@ class CommodityPriceController extends Controller
         $commodityPrice->update($validated);
 
         return redirect()
-            ->route('pahewo.commodity-prices.index')
+            ->route('msl.commodity-prices.index')
             ->with('success', __('Prix mis à jour avec succès.'));
     }
 
@@ -141,7 +141,7 @@ class CommodityPriceController extends Controller
         $commodityPrice->delete();
 
         return redirect()
-            ->route('pahewo.commodity-prices.index')
+            ->route('msl.commodity-prices.index')
             ->with('success', __('Prix supprimé avec succès.'));
     }
 }

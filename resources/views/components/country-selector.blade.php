@@ -22,7 +22,7 @@
     @endforeach
 
     <label for="{{ $name }}" class="text-sm font-medium text-gray-600">
-        {{ __('pahewo.common.country') }} :
+        {{ __('msl.common.country') }} :
     </label>
 
     <select
@@ -33,7 +33,7 @@
     >
         @if ($showAll)
             <option value="" @selected($selected === null || $selected === '')>
-                {{ __('pahewo.common.all_countries') }}
+                {{ __('msl.common.all_countries') }}
             </option>
         @endif
 

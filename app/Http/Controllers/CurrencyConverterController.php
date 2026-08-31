@@ -47,7 +47,7 @@ class CurrencyConverterController extends Controller
             }
         }
 
-        return view('pahewo.tools.currency-converter', compact(
+        return view('msl.tools.currency-converter', compact(
             'currencies', 'countries', 'countryId', 'result', 'error'
         ));
     }

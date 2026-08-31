@@ -24,7 +24,7 @@ class ReportController extends Controller
 
         $countryId = $this->resolveCountryId($request);
 
-        return view('pahewo.reports.index', [
+        return view('msl.reports.index', [
             'countryId' => $countryId,
             'countries' => Country::query()->whereIn('id', $request->user()?->accessibleCountryIds() ?? [])->orderBy('name')->get(['id', 'name']),
             'claimSummary' => $dashboardService->claimSummary($countryId),
@@ -55,7 +55,7 @@ class ReportController extends Controller
                 ->get();
         }
 
-        return view('pahewo.reports.price-trends', [
+        return view('msl.reports.price-trends', [
             'trends' => $trends,
             'commodities' => Commodity::query()->with('translations')->orderBy('code')->get(),
             'commodityId' => $commodityId,
@@ -80,7 +80,7 @@ class ReportController extends Controller
             ->get()
             ->groupBy(fn ($r) => $r->baseCurrency?->code.'/'.$r->quoteCurrency?->code);
 
-        return view('pahewo.reports.exchange-rate-trends', [
+        return view('msl.reports.exchange-rate-trends', [
             'trends' => $trends,
             'days' => $days,
             'countryId' => $countryId,
@@ -107,7 +107,7 @@ class ReportController extends Controller
             ->groupBy(fn ($c) => $c->country?->name ?? '-')
             ->map->count();
 
-        return view('pahewo.reports.claims', [
+        return view('msl.reports.claims', [
             'byStatus' => $byStatus,
             'byCountry' => $byCountry,
             'countryId' => $countryId,

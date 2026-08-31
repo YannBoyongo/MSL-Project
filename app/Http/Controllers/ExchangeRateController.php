@@ -39,7 +39,7 @@ class ExchangeRateController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.exchange-rates.index', compact('exchangeRates', 'countries', 'countryId', 'rateDate'));
+        return view('msl.exchange-rates.index', compact('exchangeRates', 'countries', 'countryId', 'rateDate'));
     }
 
     public function create(Request $request): View
@@ -59,7 +59,7 @@ class ExchangeRateController extends Controller
 
         $countryId = $this->resolveCountryId($request);
 
-        return view('pahewo.exchange-rates.create', compact('countries', 'currencies', 'countryId'));
+        return view('msl.exchange-rates.create', compact('countries', 'currencies', 'countryId'));
     }
 
     public function store(StoreExchangeRateRequest $request, ExchangeRateService $exchangeRateService): RedirectResponse
@@ -69,7 +69,7 @@ class ExchangeRateController extends Controller
         $exchangeRateService->store($request->validated(), $request->user());
 
         return redirect()
-            ->route('pahewo.exchange-rates.index')
+            ->route('msl.exchange-rates.index')
             ->with('success', __('Taux de change enregistré avec succès.'));
     }
 
@@ -88,7 +88,7 @@ class ExchangeRateController extends Controller
             ->orderBy('code')
             ->get(['id', 'code', 'name']);
 
-        return view('pahewo.exchange-rates.edit', compact('exchangeRate', 'countries', 'currencies'));
+        return view('msl.exchange-rates.edit', compact('exchangeRate', 'countries', 'currencies'));
     }
 
     public function update(Request $request, ExchangeRate $exchangeRate): RedirectResponse
@@ -109,7 +109,7 @@ class ExchangeRateController extends Controller
         $exchangeRate->update($validated);
 
         return redirect()
-            ->route('pahewo.exchange-rates.index')
+            ->route('msl.exchange-rates.index')
             ->with('success', __('Taux de change mis à jour avec succès.'));
     }
 
@@ -120,7 +120,7 @@ class ExchangeRateController extends Controller
         $exchangeRate->delete();
 
         return redirect()
-            ->route('pahewo.exchange-rates.index')
+            ->route('msl.exchange-rates.index')
             ->with('success', __('Taux de change supprimé avec succès.'));
     }
 }

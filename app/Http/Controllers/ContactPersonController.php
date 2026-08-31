@@ -36,7 +36,7 @@ class ContactPersonController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.contact-persons.index', compact('contactPersons', 'countries', 'countryId'));
+        return view('msl.contact-persons.index', compact('contactPersons', 'countries', 'countryId'));
     }
 
     public function create(Request $request): View
@@ -58,7 +58,7 @@ class ContactPersonController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.contact-persons.create', compact('countries', 'markets', 'borderCrossings'));
+        return view('msl.contact-persons.create', compact('countries', 'markets', 'borderCrossings'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -86,7 +86,7 @@ class ContactPersonController extends Controller
         ContactPerson::query()->create($validated);
 
         return redirect()
-            ->route('pahewo.contact-persons.index')
+            ->route('msl.contact-persons.index')
             ->with('success', __('Personne de contact créée avec succès.'));
     }
 
@@ -113,7 +113,7 @@ class ContactPersonController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.contact-persons.edit', compact('contactPerson', 'countries', 'markets', 'borderCrossings'));
+        return view('msl.contact-persons.edit', compact('contactPerson', 'countries', 'markets', 'borderCrossings'));
     }
 
     public function update(Request $request, ContactPerson $contactPerson): RedirectResponse
@@ -141,7 +141,7 @@ class ContactPersonController extends Controller
         $contactPerson->update($validated);
 
         return redirect()
-            ->route('pahewo.contact-persons.index')
+            ->route('msl.contact-persons.index')
             ->with('success', __('Personne de contact mise à jour avec succès.'));
     }
 
@@ -156,7 +156,7 @@ class ContactPersonController extends Controller
         $contactPerson->delete();
 
         return redirect()
-            ->route('pahewo.contact-persons.index')
+            ->route('msl.contact-persons.index')
             ->with('success', __('Personne de contact supprimée avec succès.'));
     }
 }

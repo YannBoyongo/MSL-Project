@@ -15,14 +15,14 @@ class LanguageController extends Controller
 
         $languages = Language::query()->orderBy('name')->paginate(15);
 
-        return view('pahewo.languages.index', compact('languages'));
+        return view('msl.languages.index', compact('languages'));
     }
 
     public function create(): View
     {
         abort_unless(auth()->user()?->can('countries.manage'), 403);
 
-        return view('pahewo.languages.create');
+        return view('msl.languages.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -39,14 +39,14 @@ class LanguageController extends Controller
 
         Language::query()->create($validated);
 
-        return redirect()->route('pahewo.languages.index')->with('success', __('Langue créée avec succès.'));
+        return redirect()->route('msl.languages.index')->with('success', __('Langue créée avec succès.'));
     }
 
     public function edit(Language $language): View
     {
         abort_unless(auth()->user()?->can('countries.manage'), 403);
 
-        return view('pahewo.languages.edit', compact('language'));
+        return view('msl.languages.edit', compact('language'));
     }
 
     public function update(Request $request, Language $language): RedirectResponse
@@ -63,7 +63,7 @@ class LanguageController extends Controller
 
         $language->update($validated);
 
-        return redirect()->route('pahewo.languages.index')->with('success', __('Langue mise à jour avec succès.'));
+        return redirect()->route('msl.languages.index')->with('success', __('Langue mise à jour avec succès.'));
     }
 
     public function destroy(Request $request, Language $language): RedirectResponse
@@ -72,6 +72,6 @@ class LanguageController extends Controller
 
         $language->delete();
 
-        return redirect()->route('pahewo.languages.index')->with('success', __('Langue supprimée avec succès.'));
+        return redirect()->route('msl.languages.index')->with('success', __('Langue supprimée avec succès.'));
     }
 }

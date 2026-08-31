@@ -13,7 +13,7 @@ class LanguagePreferenceController extends Controller
     {
         $languages = Language::query()->where('is_active', true)->orderBy('name')->get();
 
-        return view('pahewo.language.edit', compact('languages'));
+        return view('msl.language.edit', compact('languages'));
     }
 
     public function update(Request $request): RedirectResponse
@@ -26,6 +26,6 @@ class LanguagePreferenceController extends Controller
             'preferred_language_id' => $validated['preferred_language_id'],
         ]);
 
-        return redirect()->route('pahewo.language')->with('success', __('Langue préférée mise à jour.'));
+        return redirect()->route('msl.language')->with('success', __('Langue préférée mise à jour.'));
     }
 }

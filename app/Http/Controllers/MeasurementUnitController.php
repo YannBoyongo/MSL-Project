@@ -23,14 +23,14 @@ class MeasurementUnitController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        return view('pahewo.measurement-units.index', compact('units'));
+        return view('msl.measurement-units.index', compact('units'));
     }
 
     public function create(): View
     {
         abort_unless(auth()->user()?->can('commodities.create'), 403);
 
-        return view('pahewo.measurement-units.create');
+        return view('msl.measurement-units.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -52,7 +52,7 @@ class MeasurementUnitController extends Controller
 
         $this->syncTranslation($unit, $unit->translations(), ['name' => $validated['name']]);
 
-        return redirect()->route('pahewo.measurement-units.index')->with('success', __('Unité de mesure créée avec succès.'));
+        return redirect()->route('msl.measurement-units.index')->with('success', __('Unité de mesure créée avec succès.'));
     }
 
     public function edit(MeasurementUnit $measurementUnit): View
@@ -62,7 +62,7 @@ class MeasurementUnitController extends Controller
         $measurementUnit->load('translations');
         $translation = $measurementUnit->translate();
 
-        return view('pahewo.measurement-units.edit', compact('measurementUnit', 'translation'));
+        return view('msl.measurement-units.edit', compact('measurementUnit', 'translation'));
     }
 
     public function update(Request $request, MeasurementUnit $measurementUnit): RedirectResponse
@@ -84,7 +84,7 @@ class MeasurementUnitController extends Controller
 
         $this->syncTranslation($measurementUnit, $measurementUnit->translations(), ['name' => $validated['name']]);
 
-        return redirect()->route('pahewo.measurement-units.index')->with('success', __('Unité de mesure mise à jour avec succès.'));
+        return redirect()->route('msl.measurement-units.index')->with('success', __('Unité de mesure mise à jour avec succès.'));
     }
 
     public function destroy(Request $request, MeasurementUnit $measurementUnit): RedirectResponse
@@ -93,6 +93,6 @@ class MeasurementUnitController extends Controller
 
         $measurementUnit->delete();
 
-        return redirect()->route('pahewo.measurement-units.index')->with('success', __('Unité de mesure supprimée avec succès.'));
+        return redirect()->route('msl.measurement-units.index')->with('success', __('Unité de mesure supprimée avec succès.'));
     }
 }

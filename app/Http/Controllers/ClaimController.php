@@ -43,7 +43,7 @@ class ClaimController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.claims.index', [
+        return view('msl.claims.index', [
             'claims' => $claims,
             'countries' => $countries,
             'countryId' => $countryId,
@@ -80,7 +80,7 @@ class ClaimController extends Controller
 
         $countryId = $this->resolveCountryId($request);
 
-        return view('pahewo.claims.create', compact('countries', 'claimTypes', 'markets', 'borderCrossings', 'countryId'));
+        return view('msl.claims.create', compact('countries', 'claimTypes', 'markets', 'borderCrossings', 'countryId'));
     }
 
     public function store(StoreClaimRequest $request, ClaimService $claimService): RedirectResponse
@@ -94,7 +94,7 @@ class ClaimController extends Controller
         $claim = $claimService->createClaim($data, $request->user());
 
         return redirect()
-            ->route('pahewo.claims.show', $claim)
+            ->route('msl.claims.show', $claim)
             ->with('success', __('Réclamation soumise avec succès.'));
     }
 
@@ -112,7 +112,7 @@ class ClaimController extends Controller
             'attachments',
         ]);
 
-        return view('pahewo.claims.show', compact('claim'));
+        return view('msl.claims.show', compact('claim'));
     }
 
     public function edit(Claim $claim): View
@@ -130,7 +130,7 @@ class ClaimController extends Controller
             ->orderBy('code')
             ->get();
 
-        return view('pahewo.claims.edit', compact('claim', 'countries', 'claimTypes'));
+        return view('msl.claims.edit', compact('claim', 'countries', 'claimTypes'));
     }
 
     public function update(Request $request, Claim $claim): RedirectResponse
@@ -146,7 +146,7 @@ class ClaimController extends Controller
         $claim->update($validated);
 
         return redirect()
-            ->route('pahewo.claims.show', $claim)
+            ->route('msl.claims.show', $claim)
             ->with('success', __('Réclamation mise à jour avec succès.'));
     }
 
@@ -157,7 +157,7 @@ class ClaimController extends Controller
         $claim->delete();
 
         return redirect()
-            ->route('pahewo.claims.index')
+            ->route('msl.claims.index')
             ->with('success', __('Réclamation supprimée avec succès.'));
     }
 }

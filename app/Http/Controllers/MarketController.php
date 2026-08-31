@@ -36,7 +36,7 @@ class MarketController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.markets.index', compact('markets', 'countries', 'countryId'));
+        return view('msl.markets.index', compact('markets', 'countries', 'countryId'));
     }
 
     public function create(Request $request): View
@@ -49,7 +49,7 @@ class MarketController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.markets.create', compact('countries'));
+        return view('msl.markets.create', compact('countries'));
     }
 
     public function store(StoreMarketRequest $request): RedirectResponse
@@ -62,7 +62,7 @@ class MarketController extends Controller
         Market::query()->create($validated);
 
         return redirect()
-            ->route('pahewo.markets.index')
+            ->route('msl.markets.index')
             ->with('success', __('Marché créé avec succès.'));
     }
 
@@ -76,7 +76,7 @@ class MarketController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.markets.edit', compact('market', 'countries'));
+        return view('msl.markets.edit', compact('market', 'countries'));
     }
 
     public function update(Request $request, Market $market): RedirectResponse
@@ -100,7 +100,7 @@ class MarketController extends Controller
         $market->update($validated);
 
         return redirect()
-            ->route('pahewo.markets.index')
+            ->route('msl.markets.index')
             ->with('success', __('Marché mis à jour avec succès.'));
     }
 
@@ -111,7 +111,7 @@ class MarketController extends Controller
         $market->delete();
 
         return redirect()
-            ->route('pahewo.markets.index')
+            ->route('msl.markets.index')
             ->with('success', __('Marché supprimé avec succès.'));
     }
 }

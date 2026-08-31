@@ -21,14 +21,14 @@ class CountryController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        return view('pahewo.countries.index', compact('countries'));
+        return view('msl.countries.index', compact('countries'));
     }
 
     public function create(Request $request): View
     {
         abort_unless($request->user()?->can('countries.manage'), 403);
 
-        return view('pahewo.countries.create');
+        return view('msl.countries.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -47,7 +47,7 @@ class CountryController extends Controller
         Country::query()->create($validated);
 
         return redirect()
-            ->route('pahewo.countries.index')
+            ->route('msl.countries.index')
             ->with('success', __('Pays créé avec succès.'));
     }
 
@@ -55,7 +55,7 @@ class CountryController extends Controller
     {
         abort_unless($request->user()?->can('countries.manage'), 403);
 
-        return view('pahewo.countries.edit', compact('country'));
+        return view('msl.countries.edit', compact('country'));
     }
 
     public function update(Request $request, Country $country): RedirectResponse
@@ -74,7 +74,7 @@ class CountryController extends Controller
         $country->update($validated);
 
         return redirect()
-            ->route('pahewo.countries.index')
+            ->route('msl.countries.index')
             ->with('success', __('Pays mis à jour avec succès.'));
     }
 
@@ -85,7 +85,7 @@ class CountryController extends Controller
         $country->delete();
 
         return redirect()
-            ->route('pahewo.countries.index')
+            ->route('msl.countries.index')
             ->with('success', __('Pays supprimé avec succès.'));
     }
 }

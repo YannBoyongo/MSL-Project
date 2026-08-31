@@ -23,14 +23,14 @@ class ClaimTypeController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        return view('pahewo.claim-types.index', compact('claimTypes'));
+        return view('msl.claim-types.index', compact('claimTypes'));
     }
 
     public function create(): View
     {
         abort_unless(auth()->user()?->can('claims.review'), 403);
 
-        return view('pahewo.claim-types.create');
+        return view('msl.claim-types.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -54,7 +54,7 @@ class ClaimTypeController extends Controller
             'description' => $validated['description'] ?? null,
         ]);
 
-        return redirect()->route('pahewo.claim-types.index')->with('success', __('Type de réclamation créé avec succès.'));
+        return redirect()->route('msl.claim-types.index')->with('success', __('Type de réclamation créé avec succès.'));
     }
 
     public function edit(ClaimType $claimType): View
@@ -64,7 +64,7 @@ class ClaimTypeController extends Controller
         $claimType->load('translations');
         $translation = $claimType->translate();
 
-        return view('pahewo.claim-types.edit', compact('claimType', 'translation'));
+        return view('msl.claim-types.edit', compact('claimType', 'translation'));
     }
 
     public function update(Request $request, ClaimType $claimType): RedirectResponse
@@ -88,7 +88,7 @@ class ClaimTypeController extends Controller
             'description' => $validated['description'] ?? null,
         ]);
 
-        return redirect()->route('pahewo.claim-types.index')->with('success', __('Type de réclamation mis à jour avec succès.'));
+        return redirect()->route('msl.claim-types.index')->with('success', __('Type de réclamation mis à jour avec succès.'));
     }
 
     public function destroy(Request $request, ClaimType $claimType): RedirectResponse
@@ -97,6 +97,6 @@ class ClaimTypeController extends Controller
 
         $claimType->delete();
 
-        return redirect()->route('pahewo.claim-types.index')->with('success', __('Type de réclamation supprimé avec succès.'));
+        return redirect()->route('msl.claim-types.index')->with('success', __('Type de réclamation supprimé avec succès.'));
     }
 }

@@ -37,7 +37,7 @@ class TravelDocumentController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.travel-documents.index', compact('travelDocuments', 'countries', 'countryId'));
+        return view('msl.travel-documents.index', compact('travelDocuments', 'countries', 'countryId'));
     }
 
     public function create(Request $request): View
@@ -68,7 +68,7 @@ class TravelDocumentController extends Controller
 
         $countryId = $this->resolveCountryId($request);
 
-        return view('pahewo.travel-documents.create', compact('countries', 'documentTypes', 'currencies', 'languages', 'countryId'));
+        return view('msl.travel-documents.create', compact('countries', 'documentTypes', 'currencies', 'languages', 'countryId'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -107,7 +107,7 @@ class TravelDocumentController extends Controller
         ]);
 
         return redirect()
-            ->route('pahewo.travel-documents.index')
+            ->route('msl.travel-documents.index')
             ->with('success', __('Document de voyage créé avec succès.'));
     }
 
@@ -142,7 +142,7 @@ class TravelDocumentController extends Controller
             ->orderBy('name')
             ->get(['id', 'name', 'code']);
 
-        return view('pahewo.travel-documents.edit', compact('travelDocument', 'countries', 'documentTypes', 'currencies', 'languages'));
+        return view('msl.travel-documents.edit', compact('travelDocument', 'countries', 'documentTypes', 'currencies', 'languages'));
     }
 
     public function update(Request $request, TravelDocument $travelDocument): RedirectResponse
@@ -187,7 +187,7 @@ class TravelDocumentController extends Controller
         );
 
         return redirect()
-            ->route('pahewo.travel-documents.index')
+            ->route('msl.travel-documents.index')
             ->with('success', __('Document de voyage mis à jour avec succès.'));
     }
 
@@ -202,7 +202,7 @@ class TravelDocumentController extends Controller
         $travelDocument->delete();
 
         return redirect()
-            ->route('pahewo.travel-documents.index')
+            ->route('msl.travel-documents.index')
             ->with('success', __('Document de voyage supprimé avec succès.'));
     }
 }

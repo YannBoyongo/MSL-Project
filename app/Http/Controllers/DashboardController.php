@@ -29,13 +29,13 @@ class DashboardController extends Controller
         $user = $request->user();
 
         if ($user?->hasRole('trader')) {
-            return view('pahewo.dashboard.trader', $data);
+            return view('msl.dashboard.trader', $data);
         }
 
         if ($user?->hasAnyRole(['data-collector', 'market-officer'])) {
-            return view('pahewo.dashboard.collector', $data);
+            return view('msl.dashboard.collector', $data);
         }
 
-        return view('pahewo.dashboard.admin', $data);
+        return view('msl.dashboard.admin', $data);
     }
 }

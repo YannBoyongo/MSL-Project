@@ -33,7 +33,7 @@ class ForexBureauController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.forex-bureaus.index', compact('forexBureaus', 'countries', 'countryId'));
+        return view('msl.forex-bureaus.index', compact('forexBureaus', 'countries', 'countryId'));
     }
 
     public function create(Request $request): View
@@ -46,7 +46,7 @@ class ForexBureauController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.forex-bureaus.create', compact('countries'));
+        return view('msl.forex-bureaus.create', compact('countries'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -69,7 +69,7 @@ class ForexBureauController extends Controller
 
         ForexBureau::query()->create($validated);
 
-        return redirect()->route('pahewo.forex-bureaus.index')->with('success', __('Bureau de change créé avec succès.'));
+        return redirect()->route('msl.forex-bureaus.index')->with('success', __('Bureau de change créé avec succès.'));
     }
 
     public function edit(ForexBureau $forexBureau): View
@@ -83,7 +83,7 @@ class ForexBureauController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.forex-bureaus.edit', compact('forexBureau', 'countries'));
+        return view('msl.forex-bureaus.edit', compact('forexBureau', 'countries'));
     }
 
     public function update(Request $request, ForexBureau $forexBureau): RedirectResponse
@@ -107,7 +107,7 @@ class ForexBureauController extends Controller
 
         $forexBureau->update($validated);
 
-        return redirect()->route('pahewo.forex-bureaus.index')->with('success', __('Bureau de change mis à jour avec succès.'));
+        return redirect()->route('msl.forex-bureaus.index')->with('success', __('Bureau de change mis à jour avec succès.'));
     }
 
     public function destroy(Request $request, ForexBureau $forexBureau): RedirectResponse
@@ -117,6 +117,6 @@ class ForexBureauController extends Controller
 
         $forexBureau->delete();
 
-        return redirect()->route('pahewo.forex-bureaus.index')->with('success', __('Bureau de change supprimé avec succès.'));
+        return redirect()->route('msl.forex-bureaus.index')->with('success', __('Bureau de change supprimé avec succès.'));
     }
 }

@@ -25,7 +25,7 @@ class CommodityController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        return view('pahewo.commodities.index', compact('commodities'));
+        return view('msl.commodities.index', compact('commodities'));
     }
 
     public function create(): View
@@ -35,7 +35,7 @@ class CommodityController extends Controller
         $categories = CommodityCategory::query()->with('translations')->where('is_active', true)->orderBy('code')->get();
         $units = MeasurementUnit::query()->with('translations')->where('is_active', true)->orderBy('code')->get();
 
-        return view('pahewo.commodities.create', compact('categories', 'units'));
+        return view('msl.commodities.create', compact('categories', 'units'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -63,7 +63,7 @@ class CommodityController extends Controller
             'description' => $validated['description'] ?? null,
         ]);
 
-        return redirect()->route('pahewo.commodities.index')->with('success', __('Marchandise créée avec succès.'));
+        return redirect()->route('msl.commodities.index')->with('success', __('Marchandise créée avec succès.'));
     }
 
     public function edit(Commodity $commodity): View
@@ -75,7 +75,7 @@ class CommodityController extends Controller
         $units = MeasurementUnit::query()->with('translations')->where('is_active', true)->orderBy('code')->get();
         $translation = $commodity->translate();
 
-        return view('pahewo.commodities.edit', compact('commodity', 'categories', 'units', 'translation'));
+        return view('msl.commodities.edit', compact('commodity', 'categories', 'units', 'translation'));
     }
 
     public function update(Request $request, Commodity $commodity): RedirectResponse
@@ -103,7 +103,7 @@ class CommodityController extends Controller
             'description' => $validated['description'] ?? null,
         ]);
 
-        return redirect()->route('pahewo.commodities.index')->with('success', __('Marchandise mise à jour avec succès.'));
+        return redirect()->route('msl.commodities.index')->with('success', __('Marchandise mise à jour avec succès.'));
     }
 
     public function destroy(Request $request, Commodity $commodity): RedirectResponse
@@ -112,6 +112,6 @@ class CommodityController extends Controller
 
         $commodity->delete();
 
-        return redirect()->route('pahewo.commodities.index')->with('success', __('Marchandise supprimée avec succès.'));
+        return redirect()->route('msl.commodities.index')->with('success', __('Marchandise supprimée avec succès.'));
     }
 }

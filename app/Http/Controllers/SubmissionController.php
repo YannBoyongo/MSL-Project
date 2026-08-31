@@ -31,7 +31,7 @@ class SubmissionController extends Controller
             ->limit(20)
             ->get();
 
-        return view('pahewo.submissions.index', compact('recentPrices', 'recentRates'));
+        return view('msl.submissions.index', compact('recentPrices', 'recentRates'));
     }
 
     public function history(Request $request): View
@@ -52,6 +52,6 @@ class SubmissionController extends Controller
             ->latest()
             ->paginate(15, ['*'], 'rates_page');
 
-        return view('pahewo.submissions.history', compact('prices', 'rates'));
+        return view('msl.submissions.history', compact('prices', 'rates'));
     }
 }

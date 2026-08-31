@@ -4,51 +4,51 @@
     - $exchangeRateSummary (array)
     - $recentClaims (Collection)
 --}}
-<x-pahewo-layout :title="__('pahewo.dashboard.title')">
+<x-msl-layout :title="__('msl.dashboard.title')">
     <x-page-header
-        :title="__('pahewo.dashboard.title')"
-        :subtitle="__('pahewo.common.welcome', ['name' => auth()->user()->name])"
+        :title="__('msl.dashboard.title')"
+        :subtitle="__('msl.common.welcome', ['name' => auth()->user()->name])"
     />
 
     {{-- Main action cards --}}
     <div class="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
         <a
-            href="{{ Route::has('pahewo.prices.index') ? route('pahewo.prices.index') : '#' }}"
+            href="{{ Route::has('msl.commodity-prices.index') ? route('msl.commodity-prices.index') : '#' }}"
             class="group rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition hover:border-indigo-300 hover:shadow-md"
         >
             <span class="text-3xl" aria-hidden="true">💰</span>
             <h2 class="mt-3 text-lg font-semibold text-gray-900 group-hover:text-indigo-700">
-                {{ __('pahewo.trader.daily_prices_title') }}
+                {{ __('msl.trader.daily_prices_title') }}
             </h2>
             <p class="mt-1 text-sm text-gray-500">
-                {{ __('pahewo.trader.daily_prices_desc') }}
+                {{ __('msl.trader.daily_prices_desc') }}
             </p>
         </a>
 
         <a
-            href="{{ Route::has('pahewo.exchange-rates.index') ? route('pahewo.exchange-rates.index') : '#' }}"
+            href="{{ Route::has('msl.exchange-rates.index') ? route('msl.exchange-rates.index') : '#' }}"
             class="group rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition hover:border-indigo-300 hover:shadow-md"
         >
             <span class="text-3xl" aria-hidden="true">💱</span>
             <h2 class="mt-3 text-lg font-semibold text-gray-900 group-hover:text-indigo-700">
-                {{ __('pahewo.trader.exchange_rates_title') }}
+                {{ __('msl.trader.exchange_rates_title') }}
             </h2>
             <p class="mt-1 text-sm text-gray-500">
-                {{ __('pahewo.trader.exchange_rates_desc') }}
+                {{ __('msl.trader.exchange_rates_desc') }}
             </p>
         </a>
 
         @can('claims.create')
             <a
-                href="{{ Route::has('pahewo.claims.create') ? route('pahewo.claims.create') : '#' }}"
+                href="{{ Route::has('msl.claims.create') ? route('msl.claims.create') : '#' }}"
                 class="group rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition hover:border-indigo-300 hover:shadow-md"
             >
                 <span class="text-3xl" aria-hidden="true">📝</span>
                 <h2 class="mt-3 text-lg font-semibold text-gray-900 group-hover:text-indigo-700">
-                    {{ __('pahewo.trader.submit_claim_title') }}
+                    {{ __('msl.trader.submit_claim_title') }}
                 </h2>
                 <p class="mt-1 text-sm text-gray-500">
-                    {{ __('pahewo.trader.submit_claim_desc') }}
+                    {{ __('msl.trader.submit_claim_desc') }}
                 </p>
             </a>
         @endcan
@@ -59,10 +59,10 @@
         <section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <div class="mb-4 flex items-center justify-between">
                 <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500">
-                    {{ __('pahewo.nav.daily_prices') }}
+                    {{ __('msl.nav.daily_prices') }}
                 </h2>
-                <a href="{{ Route::has('pahewo.prices.index') ? route('pahewo.prices.index') : '#' }}" class="text-xs font-medium text-indigo-600 hover:text-indigo-800">
-                    {{ __('pahewo.common.view_all') }}
+                <a href="{{ Route::has('msl.commodity-prices.index') ? route('msl.commodity-prices.index') : '#' }}" class="text-xs font-medium text-indigo-600 hover:text-indigo-800">
+                    {{ __('msl.common.view_all') }}
                 </a>
             </div>
 
@@ -84,10 +84,10 @@
         <section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <div class="mb-4 flex items-center justify-between">
                 <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500">
-                    {{ __('pahewo.nav.exchange_rates') }}
+                    {{ __('msl.nav.exchange_rates') }}
                 </h2>
-                <a href="{{ Route::has('pahewo.exchange-rates.index') ? route('pahewo.exchange-rates.index') : '#' }}" class="text-xs font-medium text-indigo-600 hover:text-indigo-800">
-                    {{ __('pahewo.common.view_all') }}
+                <a href="{{ Route::has('msl.exchange-rates.index') ? route('msl.exchange-rates.index') : '#' }}" class="text-xs font-medium text-indigo-600 hover:text-indigo-800">
+                    {{ __('msl.common.view_all') }}
                 </a>
             </div>
 
@@ -111,10 +111,10 @@
         <section class="mt-6 rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <div class="mb-4 flex items-center justify-between">
                 <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500">
-                    {{ __('pahewo.nav.claims') }}
+                    {{ __('msl.nav.claims') }}
                 </h2>
-                <a href="{{ Route::has('pahewo.claims.index') ? route('pahewo.claims.index') : '#' }}" class="text-xs font-medium text-indigo-600 hover:text-indigo-800">
-                    {{ __('pahewo.common.view_all') }}
+                <a href="{{ Route::has('msl.claims.index') ? route('msl.claims.index') : '#' }}" class="text-xs font-medium text-indigo-600 hover:text-indigo-800">
+                    {{ __('msl.common.view_all') }}
                 </a>
             </div>
 
@@ -137,4 +137,4 @@
             @endif
         </section>
     @endcan
-</x-pahewo-layout>
+</x-msl-layout>

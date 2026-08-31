@@ -23,7 +23,7 @@ class BorderCrossingController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        return view('pahewo.border-crossings.index', compact('borderCrossings'));
+        return view('msl.border-crossings.index', compact('borderCrossings'));
     }
 
     public function create(): View
@@ -33,7 +33,7 @@ class BorderCrossingController extends Controller
         $countries = Country::query()->where('is_active', true)->orderBy('name')->get(['id', 'name']);
         $statuses = BorderStatus::cases();
 
-        return view('pahewo.border-crossings.create', compact('countries', 'statuses'));
+        return view('msl.border-crossings.create', compact('countries', 'statuses'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -56,7 +56,7 @@ class BorderCrossingController extends Controller
 
         BorderCrossing::query()->create($validated);
 
-        return redirect()->route('pahewo.border-crossings.index')->with('success', __('Poste frontalier créé avec succès.'));
+        return redirect()->route('msl.border-crossings.index')->with('success', __('Poste frontalier créé avec succès.'));
     }
 
     public function edit(BorderCrossing $borderCrossing): View
@@ -66,7 +66,7 @@ class BorderCrossingController extends Controller
         $countries = Country::query()->where('is_active', true)->orderBy('name')->get(['id', 'name']);
         $statuses = BorderStatus::cases();
 
-        return view('pahewo.border-crossings.edit', compact('borderCrossing', 'countries', 'statuses'));
+        return view('msl.border-crossings.edit', compact('borderCrossing', 'countries', 'statuses'));
     }
 
     public function update(Request $request, BorderCrossing $borderCrossing): RedirectResponse
@@ -89,7 +89,7 @@ class BorderCrossingController extends Controller
 
         $borderCrossing->update($validated);
 
-        return redirect()->route('pahewo.border-crossings.index')->with('success', __('Poste frontalier mis à jour avec succès.'));
+        return redirect()->route('msl.border-crossings.index')->with('success', __('Poste frontalier mis à jour avec succès.'));
     }
 
     public function destroy(Request $request, BorderCrossing $borderCrossing): RedirectResponse
@@ -98,6 +98,6 @@ class BorderCrossingController extends Controller
 
         $borderCrossing->delete();
 
-        return redirect()->route('pahewo.border-crossings.index')->with('success', __('Poste frontalier supprimé avec succès.'));
+        return redirect()->route('msl.border-crossings.index')->with('success', __('Poste frontalier supprimé avec succès.'));
     }
 }

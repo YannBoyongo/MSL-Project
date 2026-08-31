@@ -25,6 +25,6 @@ class RoleController extends Controller
             ->get()
             ->groupBy(fn (Permission $p) => explode('.', $p->name)[0]);
 
-        return view('pahewo.roles.index', compact('roles', 'permissions'));
+        return view('msl.roles.index', compact('roles', 'permissions'));
     }
 }

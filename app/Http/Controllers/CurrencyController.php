@@ -15,14 +15,14 @@ class CurrencyController extends Controller
 
         $currencies = Currency::query()->orderBy('code')->paginate(15);
 
-        return view('pahewo.currencies.index', compact('currencies'));
+        return view('msl.currencies.index', compact('currencies'));
     }
 
     public function create(): View
     {
         abort_unless(auth()->user()?->can('countries.manage'), 403);
 
-        return view('pahewo.currencies.create');
+        return view('msl.currencies.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -41,14 +41,14 @@ class CurrencyController extends Controller
 
         Currency::query()->create($validated);
 
-        return redirect()->route('pahewo.currencies.index')->with('success', __('Devise créée avec succès.'));
+        return redirect()->route('msl.currencies.index')->with('success', __('Devise créée avec succès.'));
     }
 
     public function edit(Currency $currency): View
     {
         abort_unless(auth()->user()?->can('countries.manage'), 403);
 
-        return view('pahewo.currencies.edit', compact('currency'));
+        return view('msl.currencies.edit', compact('currency'));
     }
 
     public function update(Request $request, Currency $currency): RedirectResponse
@@ -67,7 +67,7 @@ class CurrencyController extends Controller
 
         $currency->update($validated);
 
-        return redirect()->route('pahewo.currencies.index')->with('success', __('Devise mise à jour avec succès.'));
+        return redirect()->route('msl.currencies.index')->with('success', __('Devise mise à jour avec succès.'));
     }
 
     public function destroy(Request $request, Currency $currency): RedirectResponse
@@ -76,6 +76,6 @@ class CurrencyController extends Controller
 
         $currency->delete();
 
-        return redirect()->route('pahewo.currencies.index')->with('success', __('Devise supprimée avec succès.'));
+        return redirect()->route('msl.currencies.index')->with('success', __('Devise supprimée avec succès.'));
     }
 }

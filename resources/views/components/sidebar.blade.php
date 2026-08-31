@@ -1,7 +1,7 @@
 @php
     use Illuminate\Support\Facades\Route;
 
-    $menu = config('pahewo.menu', []);
+    $menu = config('msl.menu', []);
 @endphp
 
 <aside
@@ -9,11 +9,11 @@
 >
     <div class="flex h-14 items-center border-b border-gray-200 px-4">
         <a href="{{ route('dashboard') }}" class="text-lg font-bold tracking-tight text-indigo-700">
-            {{ __('pahewo.app_name') }}
+            {{ __('msl.app_name') }}
         </a>
     </div>
 
-    <nav class="flex-1 overflow-y-auto pb-4" aria-label="{{ __('pahewo.common.menu') }}">
+    <nav class="flex-1 overflow-y-auto pb-4" aria-label="{{ __('msl.common.menu') }}">
         @foreach ($menu as $section)
             @php
                 $visibleItems = collect($section['items'])->filter(function (array $item): bool {
@@ -26,7 +26,7 @@
             @endphp
 
             @if ($visibleItems->isNotEmpty())
-                <x-sidebar-section :title="__('pahewo.sections.'.$section['section'])">
+                <x-sidebar-section :title="__('msl.sections.'.$section['section'])">
                     @foreach ($visibleItems as $item)
                         @php
                             $href = Route::has($item['route'])
@@ -37,7 +37,7 @@
                         <x-sidebar-link
                             :href="$href"
                             :icon="$item['icon']"
-                            :label="__('pahewo.'.$item['label'])"
+                            :label="__('msl.'.$item['label'])"
                             :active="$item['active'] ?? null"
                         />
                     @endforeach

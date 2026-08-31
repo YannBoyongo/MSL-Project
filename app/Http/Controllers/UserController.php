@@ -41,7 +41,7 @@ class UserController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.users.index', compact('users', 'countries', 'countryId'));
+        return view('msl.users.index', compact('users', 'countries', 'countryId'));
     }
 
     public function create(Request $request): View
@@ -61,7 +61,7 @@ class UserController extends Controller
         $roles = Role::query()->orderBy('name')->get(['id', 'name']);
         $languages = Language::query()->where('is_active', true)->orderBy('name')->get(['id', 'name']);
 
-        return view('pahewo.users.create', compact('countries', 'markets', 'roles', 'languages'));
+        return view('msl.users.create', compact('countries', 'markets', 'roles', 'languages'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -107,7 +107,7 @@ class UserController extends Controller
         }
 
         return redirect()
-            ->route('pahewo.users.index')
+            ->route('msl.users.index')
             ->with('success', __('Utilisateur créé avec succès.'));
     }
 
@@ -130,7 +130,7 @@ class UserController extends Controller
         $roles = Role::query()->orderBy('name')->get(['id', 'name']);
         $languages = Language::query()->where('is_active', true)->orderBy('name')->get(['id', 'name']);
 
-        return view('pahewo.users.edit', compact('user', 'countries', 'markets', 'roles', 'languages'));
+        return view('msl.users.edit', compact('user', 'countries', 'markets', 'roles', 'languages'));
     }
 
     public function update(Request $request, User $user): RedirectResponse
@@ -173,7 +173,7 @@ class UserController extends Controller
         $user->markets()->sync($validated['markets'] ?? []);
 
         return redirect()
-            ->route('pahewo.users.index')
+            ->route('msl.users.index')
             ->with('success', __('Utilisateur mis à jour avec succès.'));
     }
 
@@ -183,14 +183,14 @@ class UserController extends Controller
 
         if ($user->id === auth()->id()) {
             return redirect()
-                ->route('pahewo.users.index')
+                ->route('msl.users.index')
                 ->with('error', __('Vous ne pouvez pas supprimer votre propre compte.'));
         }
 
         $user->delete();
 
         return redirect()
-            ->route('pahewo.users.index')
+            ->route('msl.users.index')
             ->with('success', __('Utilisateur supprimé avec succès.'));
     }
 }

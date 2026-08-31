@@ -11,6 +11,6 @@ class SettingsController extends Controller
     {
         abort_unless($request->user()?->can('roles.manage'), 403);
 
-        return view('pahewo.settings.index');
+        return view('msl.settings.index');
     }
 }

@@ -49,10 +49,10 @@ Route::get('/actualites/{slug}', function (string $slug = 'fermeture-frontiere-b
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/pahewo/language', [LanguagePreferenceController::class, 'edit'])->name('pahewo.language');
-    Route::put('/pahewo/language', [LanguagePreferenceController::class, 'update'])->name('pahewo.language.update');
+    Route::get('/msl/language', [LanguagePreferenceController::class, 'edit'])->name('msl.language');
+    Route::put('/msl/language', [LanguagePreferenceController::class, 'update'])->name('msl.language.update');
 
-    Route::prefix('pahewo')->name('pahewo.')->middleware('country.access')->group(function (): void {
+    Route::prefix('msl')->name('msl.')->middleware('country.access')->group(function (): void {
         Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
         Route::get('prices/compare', [PriceCompareController::class, 'index'])->name('prices.compare');
         Route::match(['get', 'post'], 'currency-converter', [CurrencyConverterController::class, 'index'])->name('currency-converter');

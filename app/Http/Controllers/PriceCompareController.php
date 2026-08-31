@@ -43,7 +43,7 @@ class PriceCompareController extends Controller
                 ->get();
         }
 
-        return view('pahewo.prices.compare', compact(
+        return view('msl.prices.compare', compact(
             'commodities', 'countries', 'countryId', 'commodityId', 'date', 'prices'
         ));
     }

@@ -38,7 +38,7 @@
                 type="button"
                 class="shrink-0 opacity-60 transition hover:opacity-100"
                 @click="show = false"
-                aria-label="{{ __('pahewo.common.close') }}"
+                aria-label="{{ __('msl.common.close') }}"
             >
                 ✕
             </button>

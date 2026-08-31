@@ -1,4 +1,4 @@
-# Mupaka Shamba Letu (MSL / PAHEWO)
+# Mupaka Shamba Letu (MSL)
 
 [![Laravel Version](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=flat-square&logo=laravel)](https://laravel.com)
 [![PHP Version](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat-square&logo=php)](https://php.net)
@@ -7,7 +7,7 @@
 [![Tests Status](https://img.shields.io/badge/Tests-42%20passed%20(217%20assertions)-brightgreen?style=flat-square)](tests)
 [![Code Style](https://img.shields.io/badge/Code_Style-Laravel_Pint-blue?style=flat-square)](https://laravel.com/docs/pint)
 
-**Mupaka Shamba Letu** is a multilingual cross-border trade information management system (PAHEWO) designed for the Great Lakes region (**DR Congo**, **Rwanda**, and **Burundi**). The platform operationalizes the **NEXUS approach** by connecting humanitarian support, long-term economic resilience for small-scale cross-border traders (AVECs/FPCTS), and peacebuilding through transparent market data, currency exchange monitoring, travel requirement guides, and cross-border grievance reporting.
+**Mupaka Shamba Letu** is a multilingual cross-border trade information management system designed for the Great Lakes region (**DR Congo**, **Rwanda**, and **Burundi**). The platform operationalizes the **NEXUS approach** by connecting humanitarian support, long-term economic resilience for small-scale cross-border traders (AVECs/FPCTS), and peacebuilding through transparent market data, currency exchange monitoring, travel requirement guides, and cross-border grievance reporting.
 
 ---
 
@@ -34,7 +34,7 @@
 - **Role-Based Access Control (RBAC)**: Managed via `spatie/laravel-permission` with dedicated permissions for Super Admins, Country Admins, Data Collectors, Traders, and Viewers.
 - **Multi-Country Data Isolation**: `EnsureCountryAccess` middleware enforcing country-level scope with persistent session filters and country switcher.
 
-### 3. Trade & Market Monitoring (`/pahewo/...`)
+### 3. Trade & Market Monitoring (`/msl/...`)
 - **Daily Commodity Prices**: Track retail and wholesale commodity prices across regional border markets with automated price comparison and trend visualization.
 - **Forex & Currency Converter**: Real-time tracking of official and bureau exchange rates with an interactive currency converter tool.
 - **Cross-Border Mobility & Border Posts**: Real-time status of border crossings (open, restricted, closed), travel documentation requirements, and local border liaison officers.
@@ -56,7 +56,7 @@
 | **Language & Runtime** | [PHP 8.2+](https://php.net) |
 | **Authentication** | [Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze) (Extended with multi-identifier login) |
 | **Authorization & RBAC** | [spatie/laravel-permission](https://spatie.be/docs/laravel-permission) |
-| **Frontend Templates** | Laravel Blade Components (`<x-public-layout>`, `<x-pahewo-layout>`, `<x-breadcrumb>`) |
+| **Frontend Templates** | Laravel Blade Components (`<x-public-layout>`, `<x-msl-layout>`, `<x-breadcrumb>`) |
 | **Styling & Design** | [Tailwind CSS](https://tailwindcss.com), [Poppins Font](https://fonts.bunny.net/family/poppins) |
 | **JavaScript & Reactivity** | [Alpine.js](https://alpinejs.dev), [Vite 7](https://vitejs.dev) |
 | **Mapping Engine** | [Leaflet.js](https://leafletjs.com) with custom OpenStreetMap tiles |
@@ -81,7 +81,7 @@ msl-app/
 │   ├── Services/              # Domain services (DashboardService, ClaimService, etc.)
 │   └── View/Components/       # Blade layout and UI components
 ├── config/
-│   ├── pahewo.php             # Navigation, sections, and permission mappings
+│   ├── msl.php                # Navigation, sections, and permission mappings
 │   └── permission.php         # Spatie RBAC configuration
 ├── database/
 │   ├── migrations/            # Database schema definitions
@@ -95,9 +95,9 @@ msl-app/
 │   ├── js/                    # Alpine.js and client bootstrapping
 │   └── views/
 │       ├── components/        # Reusable UI components (breadcrumbs, stat-cards, modals)
-│       ├── layouts/           # Layout wrappers (public, pahewo, guest, app)
+│       ├── layouts/           # Layout wrappers (public, msl, guest, app)
 │       ├── pages/             # Public pages (about, news, news-show)
-│       ├── pahewo/            # Internal modules (commodities, forex, claims, etc.)
+│       ├── msl/               # Internal modules (commodities, forex, claims, etc.)
 │       └── welcome.blade.php  # Public homepage
 ├── routes/
 │   ├── web.php                # Public and authenticated route definitions
@@ -158,13 +158,13 @@ msl-app/
 
 ## Default Seeded Credentials
 
-When seeded with `PahewoSeeder`, the following Super Admin user is provisioned:
+When seeded with `MslSeeder`, the following Super Admin user is provisioned:
 
 | Role | Identifier / Email | Password | Access Scope |
 |---|---|---|---|
-| **Super Admin** | `admin@pahewo.org` | `password` | Global (All Countries & Modules) |
+| **Super Admin** | `admin@msl.org` | `password` | Global (All Countries & Modules) |
 
-*Note: You can log in using either the email (`admin@pahewo.org`), the user name (`Super Admin`), or a registered phone number.*
+*Note: You can log in using either the email (`admin@msl.org`), the user name (`Super Admin`), or a registered phone number.*
 
 ---
 

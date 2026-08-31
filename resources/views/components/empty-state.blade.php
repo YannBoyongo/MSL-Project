@@ -1,6 +1,6 @@
 @props([
-    'title' => __('pahewo.empty.title'),
-    'description' => __('pahewo.empty.description'),
+    'title' => __('msl.empty.title'),
+    'description' => __('msl.empty.description'),
     'icon' => '📭',
 ])
 

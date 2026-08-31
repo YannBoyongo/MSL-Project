@@ -8,6 +8,6 @@ class HelpController extends Controller
 {
     public function index(): View
     {
-        return view('pahewo.help.index');
+        return view('msl.help.index');
     }
 }

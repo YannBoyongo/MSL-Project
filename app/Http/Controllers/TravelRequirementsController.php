@@ -32,6 +32,6 @@ class TravelRequirementsController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('pahewo.travel-requirements.index', compact('documents', 'countries', 'countryId'));
+        return view('msl.travel-requirements.index', compact('documents', 'countries', 'countryId'));
     }
 }

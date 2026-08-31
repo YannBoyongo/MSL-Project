@@ -22,7 +22,7 @@ class StatisticsController extends Controller
 
         $countryId = $this->resolveCountryId($request);
 
-        return view('pahewo.statistics.index', [
+        return view('msl.statistics.index', [
             'countryId' => $countryId,
             'marketCount' => Market::query()
                 ->when($countryId, fn ($q) => $q->where('country_id', $countryId))
