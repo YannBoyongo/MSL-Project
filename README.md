@@ -1,59 +1,188 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Mupaka Shamba Letu (MSL / PAHEWO)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel Version](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=flat-square&logo=laravel)](https://laravel.com)
+[![PHP Version](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat-square&logo=php)](https://php.net)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com)
+[![Alpine.js](https://img.shields.io/badge/Alpine.js-3.x-8BC0D0?style=flat-square&logo=alpine.js)](https://alpinejs.dev)
+[![Tests Status](https://img.shields.io/badge/Tests-42%20passed%20(217%20assertions)-brightgreen?style=flat-square)](tests)
+[![Code Style](https://img.shields.io/badge/Code_Style-Laravel_Pint-blue?style=flat-square)](https://laravel.com/docs/pint)
 
-## About Laravel
+**Mupaka Shamba Letu** is a multilingual cross-border trade information management system (PAHEWO) designed for the Great Lakes region (**DR Congo**, **Rwanda**, and **Burundi**). The platform operationalizes the **NEXUS approach** by connecting humanitarian support, long-term economic resilience for small-scale cross-border traders (AVECs/FPCTS), and peacebuilding through transparent market data, currency exchange monitoring, travel requirement guides, and cross-border grievance reporting.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Key Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Public Information Portal
+- **Interactive Home Page (`/`)**:
+  - Hero slider with automatic rotation, pause on hover, navigation controls, and pagination indicators.
+  - Quick-access feature cards for market prices, forex rates, and grievance submission.
+  - Scroll-triggered animated impact statistic counters (`6000+ FPCTS`, `4500+ AVECs`, `2300+ Plaintes/Feedback`, `800+ Jeunes Entrepreneurs`).
+  - Interactive **Leaflet.js** map centered on the Great Lakes cross-border region (Lake Kivu, Goma, Bukavu, Rubavu, Rusizi, Cibitoke) with country-coded pins and styled popups.
+  - Flash news and event carousel powered by Alpine.js.
+  - Partner showcase (Swiss Confederation, Sweden Sverige, International Alert).
+  - Floating smooth-scroll *Back to Top* button.
+- **About Page (`/a-propos`)**:
+  - Detailed overview of the project's NEXUS methodology (Humanitarian, Development, and Peacebuilding pillars).
+  - Branded header banner (`breadcomb.png`) and lightweight breadcrumbs.
+- **News & Announcements (`/actualites` & `/actualites/{slug}`)**:
+  - Category filters (*Flash*, *Événements*, *Communiqués de presse*).
+  - Detailed article view with structured content, thematic warning callouts, and social sharing links (X, LinkedIn, Facebook).
 
-## Learning Laravel
+### 2. Authentication & Multi-Country Access Control
+- **Flexible Login**: Authenticate using **Email**, **Username**, or **Phone Number**.
+- **Role-Based Access Control (RBAC)**: Managed via `spatie/laravel-permission` with dedicated permissions for Super Admins, Country Admins, Data Collectors, Traders, and Viewers.
+- **Multi-Country Data Isolation**: `EnsureCountryAccess` middleware enforcing country-level scope with persistent session filters and country switcher.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 3. Trade & Market Monitoring (`/pahewo/...`)
+- **Daily Commodity Prices**: Track retail and wholesale commodity prices across regional border markets with automated price comparison and trend visualization.
+- **Forex & Currency Converter**: Real-time tracking of official and bureau exchange rates with an interactive currency converter tool.
+- **Cross-Border Mobility & Border Posts**: Real-time status of border crossings (open, restricted, closed), travel documentation requirements, and local border liaison officers.
+- **Grievance & Claims Mechanism**: End-to-end incident submission, categorization (harassment, illegal taxation, delays), status tracking (*Nouveau*, *En cours*, *Résolu*, *Rejeté*), and resolution workflows.
+- **Data Collection & Submissions**: Dedicated submission queues and history tracking for field data collectors.
+- **Reporting & Export**: Comprehensive trend analytics for commodity price fluctuations, exchange rates, and grievance resolution rates.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 4. Internationalization & Settings
+- **Multilingual Support**: French (`fr`, default), Kiswahili (`sw`), and English (`en`) with runtime language switcher and translated dynamic entities (`HasTranslations` trait).
+- **Master Data Management**: Full CRUD for Countries, Currencies, Measurement Units, Commodity Categories, Market Locations, and Document Types.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Technology Stack
 
-### Premium Partners
+| Layer | Technology |
+|---|---|
+| **Backend Framework** | [Laravel 12.x](https://laravel.com) |
+| **Language & Runtime** | [PHP 8.2+](https://php.net) |
+| **Authentication** | [Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze) (Extended with multi-identifier login) |
+| **Authorization & RBAC** | [spatie/laravel-permission](https://spatie.be/docs/laravel-permission) |
+| **Frontend Templates** | Laravel Blade Components (`<x-public-layout>`, `<x-pahewo-layout>`, `<x-breadcrumb>`) |
+| **Styling & Design** | [Tailwind CSS](https://tailwindcss.com), [Poppins Font](https://fonts.bunny.net/family/poppins) |
+| **JavaScript & Reactivity** | [Alpine.js](https://alpinejs.dev), [Vite 7](https://vitejs.dev) |
+| **Mapping Engine** | [Leaflet.js](https://leafletjs.com) with custom OpenStreetMap tiles |
+| **Testing** | [PHPUnit 11](https://phpunit.de) (42 test suites, 217 assertions) |
+| **Code Formatting** | [Laravel Pint](https://laravel.com/docs/pint) |
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## Project Structure
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```text
+msl-app/
+├── app/
+│   ├── Concerns/              # Shared traits (HasTranslations, ResolvesCountryFilter)
+│   ├── Enums/                 # Business enums (BorderStatus, ClaimStatus, etc.)
+│   ├── Http/
+│   │   ├── Controllers/       # Resource and custom controllers
+│   │   ├── Middleware/        # Country access control middleware
+│   │   └── Requests/          # Form request validations (e.g. LoginRequest)
+│   ├── Models/                # Eloquent models with relationships and translation links
+│   ├── Policies/              # Authorization policies
+│   ├── Services/              # Domain services (DashboardService, ClaimService, etc.)
+│   └── View/Components/       # Blade layout and UI components
+├── config/
+│   ├── pahewo.php             # Navigation, sections, and permission mappings
+│   └── permission.php         # Spatie RBAC configuration
+├── database/
+│   ├── migrations/            # Database schema definitions
+│   └── seeders/               # Role, permission, country, market, and admin seeders
+├── lang/
+│   └── fr/                    # French localization files
+├── public/
+│   └── images/                # Project branding, logos, partner assets, and banners
+├── resources/
+│   ├── css/                   # Tailwind base styles and map styling
+│   ├── js/                    # Alpine.js and client bootstrapping
+│   └── views/
+│       ├── components/        # Reusable UI components (breadcrumbs, stat-cards, modals)
+│       ├── layouts/           # Layout wrappers (public, pahewo, guest, app)
+│       ├── pages/             # Public pages (about, news, news-show)
+│       ├── pahewo/            # Internal modules (commodities, forex, claims, etc.)
+│       └── welcome.blade.php  # Public homepage
+├── routes/
+│   ├── web.php                # Public and authenticated route definitions
+│   └── auth.php               # Breeze authentication routes
+└── tests/
+    └── Feature/               # PHPUnit feature test suite
+```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Getting Started
 
-## Security Vulnerabilities
+### Prerequisites
+- **PHP** >= 8.2 with `pdo`, `mbstring`, `openssl`, `curl`, `gd`, `xml`, and `sqlite3` or `mysql` extensions
+- **Composer** (v2.x)
+- **Node.js** (v18+) & **npm**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd msl-app
+   ```
+
+2. **Install PHP and Node dependencies**:
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. **Configure the environment file**:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. **Run migrations and seed default data**:
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
+
+5. **Build frontend assets**:
+   ```bash
+   npm run build
+   ```
+
+6. **Start the local development server**:
+   ```bash
+   php artisan serve
+   ```
+   *Or run Vite and the Laravel server concurrently:*
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## Default Seeded Credentials
+
+When seeded with `PahewoSeeder`, the following Super Admin user is provisioned:
+
+| Role | Identifier / Email | Password | Access Scope |
+|---|---|---|---|
+| **Super Admin** | `admin@pahewo.org` | `password` | Global (All Countries & Modules) |
+
+*Note: You can log in using either the email (`admin@pahewo.org`), the user name (`Super Admin`), or a registered phone number.*
+
+---
+
+## Running Tests & Quality Checks
+
+### Run Test Suite
+```bash
+php artisan test --compact
+```
+*(42 tests, 217 assertions covering public pages, authentication, authorization, filters, and internal modules)*
+
+### Code Formatting with Pint
+```bash
+vendor/bin/pint
+```
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](LICENSE).
