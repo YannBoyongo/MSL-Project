@@ -34,6 +34,18 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/a-propos', function () {
+    return view('pages.about');
+})->name('about');
+
+Route::get('/actualites', function () {
+    return view('pages.news');
+})->name('news');
+
+Route::get('/actualites/{slug}', function (string $slug = 'fermeture-frontiere-bukavu-ebola') {
+    return view('pages.news-show', ['slug' => $slug]);
+})->name('news.show');
+
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

@@ -38,5 +38,58 @@ class ExampleTest extends TestCase
         $response->assertSee('aria-label="X (Twitter)"', false);
         $response->assertSee('aria-label="LinkedIn"', false);
         $response->assertSee('aria-label="Facebook"', false);
+        $response->assertSee('aria-label="Retour en haut"', false);
+    }
+
+    public function test_about_page_returns_a_successful_response_with_breadcrumb(): void
+    {
+        $response = $this->get(route('about'));
+
+        $response->assertStatus(200);
+        $response->assertSee('Mupaka Samba Letu');
+        $response->assertSee('Accueil');
+        $response->assertSee('A propos');
+        $response->assertSee('aria-label="Breadcrumb"', false);
+        $response->assertSee('images/breadcomb.png');
+        $response->assertSee("Mupaka : un exemple de l'approche NEXUS", false);
+        $response->assertSee('Objectif principal');
+        $response->assertSee('Approche');
+        $response->assertSee('Adaptations');
+    }
+
+    public function test_news_page_returns_a_successful_response_with_breadcrumb(): void
+    {
+        $response = $this->get(route('news'));
+
+        $response->assertStatus(200);
+        $response->assertSee('Mupaka Samba Letu');
+        $response->assertSee('Accueil');
+        $response->assertSee('Actualités');
+        $response->assertSee('aria-label="Breadcrumb"', false);
+        $response->assertSee('images/breadcomb.png');
+        $response->assertSee('Filtrer les résultats');
+        $response->assertSee('Flash (3)');
+        $response->assertSee('Evénement (3)');
+        $response->assertSee('Communiqués de presse(3)');
+        $response->assertSee("Fermeture de la frontière de Bukavu en raison de l'épidémie d'Ebola.", false);
+        $response->assertSee('Publié le 09 Août 2026');
+        $response->assertSee('Lire plus');
+        $response->assertSee("Plus d'actualités", false);
+    }
+
+    public function test_news_show_page_returns_a_successful_response(): void
+    {
+        $response = $this->get(route('news.show', 'fermeture-frontiere-bukavu-ebola'));
+
+        $response->assertStatus(200);
+        $response->assertSee('Mupaka Samba Letu');
+        $response->assertSee('Accueil');
+        $response->assertSee('Actualités');
+        $response->assertSee('Détail actualité');
+        $response->assertSee('images/breadcomb.png');
+        $response->assertSee('Retour aux actualités');
+        $response->assertSee("Fermeture de la frontière de Bukavu en raison de l'épidémie d'Ebola.", false);
+        $response->assertSee('Publié le 09 Août 2026');
+        $response->assertSee('Partager :');
     }
 }
